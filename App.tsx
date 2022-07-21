@@ -14,6 +14,7 @@ import {
 
 import { Home } from "./src/screens/Home";
 import theme from "./src/styles/theme";
+import { CarDetails } from "./src/screens/CarDetails";
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -57,7 +58,7 @@ export default function App() {
           flex: 1,
         }}
       >
-        <Home />
+        <CarDetails />
       </View>
     </ThemeProvider>
   );
