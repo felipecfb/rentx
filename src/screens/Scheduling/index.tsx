@@ -8,6 +8,7 @@ import ArrowSvg from "../../assets/arrow.svg";
 import * as S from "./styles";
 import { StatusBar } from "react-native";
 import { Button } from "../../components/Button";
+import { Calendar } from "../../components/Calendar";
 
 export function Scheduling() {
   const theme = useTheme();
@@ -46,12 +47,14 @@ export function Scheduling() {
         </S.RentalPeriod>
       </S.Header>
 
-      <S.Content></S.Content>
+      <S.Content>
+        <Calendar />
+      </S.Content>
 
       <S.Footer>
         <Button title="Confirmar" />
       </S.Footer>
-      
+
     </S.Container>
   );
 }
