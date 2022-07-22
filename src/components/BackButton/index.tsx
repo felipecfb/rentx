@@ -1,9 +1,10 @@
 import React from "react";
-import { MaterialIcons } from "@expo/vector-icons";
-import { useTheme } from "styled-components";
-import { BorderlessButtonProps } from "react-native-gesture-handler";
 
 import * as S from "./styles";
+import { useTheme } from "styled-components";
+
+import { MaterialIcons } from "@expo/vector-icons";
+import { BorderlessButtonProps } from "react-native-gesture-handler";
 
 interface Props extends BorderlessButtonProps {
   color?: string;

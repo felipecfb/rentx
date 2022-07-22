@@ -92,7 +92,7 @@ export function SchedulingDetails() {
       </S.Content>
 
       <S.Footer>
-        <Button title="Confirmar" />
+        <Button title="Alugar agora" />
       </S.Footer>
     </S.Container>
   );

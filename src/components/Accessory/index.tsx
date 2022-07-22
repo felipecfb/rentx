@@ -1,7 +1,9 @@
 import React from 'react';
-import { SvgProps } from 'react-native-svg';
 
 import * as S from './styles';
+
+import { SvgProps } from 'react-native-svg';
+
 
 interface Props {
   name: string;

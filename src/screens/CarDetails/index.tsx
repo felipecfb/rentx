@@ -1,8 +1,11 @@
 import React from "react";
 
+import * as S from "./styles";
+
 import { BackButton } from "../../components/BackButton";
 import { ImageSlider } from "../../components/ImageSlider";
 import { Accessory } from "../../components/Accessory";
+import { Button } from "../../components/Button";
 
 import speedSvg from "../../assets/speed.svg";
 import accelerationSvg from "../../assets/acceleration.svg";
@@ -10,9 +13,6 @@ import forceSvg from "../../assets/force.svg";
 import gasolineSvg from "../../assets/gasoline.svg";
 import exchangeSvg from "../../assets/exchange.svg";
 import peopleSvg from "../../assets/people.svg";
-
-import * as S from "./styles";
-import { Button } from "../../components/Button";
 
 export function CarDetails() {
   return (

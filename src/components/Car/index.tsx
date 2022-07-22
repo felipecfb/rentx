@@ -10,13 +10,12 @@ interface CarData {
   rent: {
     period: string;
     price: number;
-  },
+  };
   thumbnail: string;
 }
 
 interface Props {
   data: CarData;
-  
 }
 
 export function Car({ data }: Props) {
@@ -29,7 +28,7 @@ export function Car({ data }: Props) {
         <S.About>
           <S.Rent>
             <S.Period>{data.rent.period}</S.Period>
-          <S.Price>{`R$ ${data.rent.price}`}</S.Price>
+            <S.Price>{`R$ ${data.rent.price}`}</S.Price>
           </S.Rent>
 
           <S.Type>
