@@ -12,7 +12,6 @@ LocaleConfig.locales['pt-br'] = {
   monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
   dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
   dayNamesShort: ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'],
-  today: 'Hoje',
 }
 
 LocaleConfig.defaultLocale = 'pt-br';
@@ -40,11 +39,15 @@ export function Calendar() {
         textDayFontFamily: theme.fonts.primary_400,
         textDayHeaderFontFamily: theme.fonts.primary_500,
         textDayHeaderFontSize: 10,
+        textMonthFontFamily: theme.fonts.secondary_600,
         textMonthFontSize: 20,
+        monthTextColor: theme.colors.title,
         arrowStyle: {
           marginHorizontal: -15,
         },
       }}
+      firstDay={1}
+      minDate={String(new Date())}
     />
   );
 }
