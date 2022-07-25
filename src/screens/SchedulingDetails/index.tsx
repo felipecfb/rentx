@@ -1,4 +1,9 @@
 import React from "react";
+import {
+  ParamListBase,
+  NavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
 
 import * as S from "./styles";
 import { useTheme } from "styled-components";
@@ -20,6 +25,12 @@ import peopleSvg from "../../assets/people.svg";
 
 export function SchedulingDetails() {
   const theme = useTheme();
+
+  const navigation = useNavigation<NavigationProp<ParamListBase>>();
+
+  function handleConfirmRental() {
+    navigation.navigate("Scheduling Complete");
+  }
   return (
     <S.Container>
       <S.Header>
@@ -92,7 +103,11 @@ export function SchedulingDetails() {
       </S.Content>
 
       <S.Footer>
-        <Button title="Alugar agora" />
+        <Button
+          title="Alugar agora"
+          color={theme.colors.success}
+          onPress={handleConfirmRental}
+        />
       </S.Footer>
     </S.Container>
   );

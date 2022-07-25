@@ -1,3 +1,6 @@
+import "react-native-gesture-handler";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+
 import React, { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
 
@@ -12,12 +15,7 @@ import {
   Archivo_500Medium,
   Archivo_600SemiBold,
 } from "@expo-google-fonts/archivo";
-
-import { Home } from "./src/screens/Home";
-import { CarDetails } from "./src/screens/CarDetails";
-import { Scheduling } from "./src/screens/Scheduling";
-import { SchedulingDetails } from "./src/screens/SchedulingDetails";
-import { SchedulingComplete } from "./src/screens/SchedulingComplete";
+import { Routes } from "./src/routes";
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -54,15 +52,17 @@ export default function App() {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <View
-        onLayout={onLayoutRootView}
-        style={{
-          flex: 1,
-        }}
-      >
-        <SchedulingComplete />
-      </View>
-    </ThemeProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <ThemeProvider theme={theme}>
+        <View
+          onLayout={onLayoutRootView}
+          style={{
+            flex: 1,
+          }}
+        >
+          <Routes />
+        </View>
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }

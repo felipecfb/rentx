@@ -1,5 +1,10 @@
 import React from "react";
 import { StatusBar } from "react-native";
+import {
+  ParamListBase,
+  NavigationProp,
+  useNavigation,
+} from "@react-navigation/native";
 
 import * as S from "./styles";
 import { useTheme } from "styled-components";
@@ -12,6 +17,12 @@ import ArrowSvg from "../../assets/arrow.svg";
 
 export function Scheduling() {
   const theme = useTheme();
+
+  const navigation = useNavigation<NavigationProp<ParamListBase>>();
+
+  function handleConfirmRental() {
+    navigation.navigate("Scheduling Details");
+  }
 
   return (
     <S.Container>
@@ -48,7 +59,7 @@ export function Scheduling() {
       </S.Content>
 
       <S.Footer>
-        <Button title="Confirmar" />
+        <Button title="Confirmar" onPress={handleConfirmRental} />
       </S.Footer>
     </S.Container>
   );
