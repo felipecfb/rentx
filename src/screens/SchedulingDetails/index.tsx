@@ -31,10 +31,14 @@ export function SchedulingDetails() {
   function handleConfirmRental() {
     navigation.navigate("Scheduling Complete");
   }
+
+  function handleBack() {
+    navigation.goBack();
+  }
   return (
     <S.Container>
       <S.Header>
-        <BackButton onPress={() => {}} />
+        <BackButton onPress={handleBack} />
       </S.Header>
 
       <S.CarImages>

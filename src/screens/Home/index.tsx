@@ -36,8 +36,6 @@ export function Home() {
           .get("/cars")
           .then((response) => response.data);
         setCars(response);
-
-        console.log(response);
       } catch (error: any) {
         console.log(error);
       } finally {
