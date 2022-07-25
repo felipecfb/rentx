@@ -37,7 +37,7 @@ export function Home() {
           .then((response) => response.data);
         setCars(response);
 
-        console.log(cars);
+        console.log(response);
       } catch (error: any) {
         console.log(error);
       } finally {
