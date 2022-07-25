@@ -6,6 +6,7 @@ import {
   ParamListBase,
   NavigationProp,
   useNavigation,
+  useRoute,
 } from "@react-navigation/native";
 
 import { BackButton } from "../../components/BackButton";
@@ -19,53 +20,61 @@ import forceSvg from "../../assets/force.svg";
 import gasolineSvg from "../../assets/gasoline.svg";
 import exchangeSvg from "../../assets/exchange.svg";
 import peopleSvg from "../../assets/people.svg";
+import { CarDTO } from "../../dtos/CarDTO";
+
+interface Params {
+  car: CarDTO;
+}
 
 export function CarDetails() {
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
+  const route = useRoute();
+
+  const { car } = route.params as Params;
 
   function handleConfirmRental() {
     navigation.navigate("Scheduling");
   }
+
+  function handleBack() {
+    navigation.goBack();
+  }
   return (
     <S.Container>
       <S.Header>
-        <BackButton onPress={() => {}} />
+        <BackButton onPress={handleBack} />
       </S.Header>
 
       <S.CarImages>
         <ImageSlider
-          imagesUrl={[
-            "https://pensecarros.com.br/cms/uploads/audi-rs5-2-9-v6-tfsi-gasolina-sportback-quattro-s-tronic-605a9d69353b2.png",
-          ]}
+          imagesUrl={car.photos}
         />
       </S.CarImages>
 
       <S.Content>
         <S.Details>
           <S.Description>
-            <S.Brand>Lamborghini</S.Brand>
-            <S.Name>Huracan</S.Name>
+            <S.Brand>{car.brand}</S.Brand>
+            <S.Name>{car.name}</S.Name>
           </S.Description>
 
           <S.Rent>
-            <S.Period>Ao dia</S.Period>
-            <S.Price>R$ 580</S.Price>
+            <S.Period>{car.rent.period}</S.Period>
+            <S.Price>{`R$ ${car.rent.price}`}</S.Price>
           </S.Rent>
         </S.Details>
 
-        <S.Acessories>
-          <Accessory name="380Km/h" icon={speedSvg} />
-          <Accessory name="3.2s" icon={accelerationSvg} />
-          <Accessory name="800 HP" icon={forceSvg} />
-          <Accessory name="Gasolina" icon={gasolineSvg} />
-          <Accessory name="Auto" icon={exchangeSvg} />
-          <Accessory name="2 pessoas" icon={peopleSvg} />
-        </S.Acessories>
+        <S.Accessories>
+          {
+            car.accessories.map(acessory => (
+
+              <Accessory key={acessory.type} name={acessory.name} icon={speedSvg} />
+            ))
+          }
+        </S.Accessories>
 
         <S.About>
-          Este é automóvel desportivo. Surgiu do lendário touro de lide
-          indultado na praça Real Maestranza de Sevilla. É um belíssimo carro
-          para quem gosta de acelerar.
+          {car.about}
         </S.About>
       </S.Content>
 
