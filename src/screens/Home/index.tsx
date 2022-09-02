@@ -34,7 +34,10 @@ export function Home() {
       try {
         const response = await api
           .get("/cars")
-          .then((response) => response.data);
+          .then((response) => {
+            console.log('deu tudo certo');
+            return response.data
+          });
         setCars(response);
       } catch (error: any) {
         console.log(error);
