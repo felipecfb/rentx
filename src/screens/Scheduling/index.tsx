@@ -14,7 +14,8 @@ import { Button } from "../../components/Button";
 import {
   Calendar,
   DayProps,
-  generateInterval
+  generateInterval,
+  MarkedDateProps,
 } from "../../components/Calendar";
 
 import ArrowSvg from "../../assets/arrow.svg";
@@ -22,6 +23,9 @@ import ArrowSvg from "../../assets/arrow.svg";
 export function Scheduling() {
   const [lastSelectedDate, setLastSelectedDate] = useState<DayProps>(
     {} as DayProps
+  );
+  const [markedDates, setMarkedDates] = useState<MarkedDateProps>(
+    {} as MarkedDateProps
   );
 
   const theme = useTheme();
@@ -43,11 +47,12 @@ export function Scheduling() {
     if (start.timestamp > end.timestamp) {
       start = end;
       end = start;
-
-      setLastSelectedDate(end);
-      const interval = generateInterval(start, end);
-      
     }
+
+    setLastSelectedDate(end);
+    const interval = generateInterval(start, end);
+
+    setMarkedDates(interval);
   }
 
   return (
@@ -81,7 +86,7 @@ export function Scheduling() {
       </S.Header>
 
       <S.Content>
-        <Calendar onDayPress={handleChangeData} markedDates={{}} />
+        <Calendar markedDates={markedDates} onDayPress={handleChangeData} />
       </S.Content>
 
       <S.Footer>
