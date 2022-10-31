@@ -51,8 +51,6 @@ export function Scheduling() {
   const route = useRoute();
   const { car } = route.params as Params;
 
-  console.log(car);
-
   function handleConfirmRental() {
     if (!rentalPeriod.startFormatted || !rentalPeriod.endFormatted) {
       Alert.alert("Selecione o intervalo para alugar.");

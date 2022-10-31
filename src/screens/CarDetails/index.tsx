@@ -15,8 +15,7 @@ import { Accessory } from "../../components/Accessory";
 import { Button } from "../../components/Button";
 
 import { CarDTO } from "../../dtos/CarDTO";
-
-import { getAccessoryIcon } from "../../utils/getAcessoryIcon";
+import { getAccessoryIcon } from "../../utils/getAccessoryIcon";
 
 interface Params {
   car: CarDTO;
@@ -41,9 +40,7 @@ export function CarDetails() {
       </S.Header>
 
       <S.CarImages>
-        <ImageSlider
-          imagesUrl={car.photos}
-        />
+        <ImageSlider imagesUrl={car.photos} />
       </S.CarImages>
 
       <S.Content>
@@ -60,17 +57,16 @@ export function CarDetails() {
         </S.Details>
 
         <S.Accessories>
-          {
-            car.accessories.map(acessory => (
-
-              <Accessory key={acessory.type} name={acessory.name} icon={getAccessoryIcon(acessory.type)} />
-            ))
-          }
+          {car.accessories.map((acessory) => (
+            <Accessory
+              key={acessory.type}
+              name={acessory.name}
+              icon={getAccessoryIcon(acessory.type)}
+            />
+          ))}
         </S.Accessories>
 
-        <S.About>
-          {car.about}
-        </S.About>
+        <S.About>{car.about}</S.About>
       </S.Content>
 
       <S.Footer>
