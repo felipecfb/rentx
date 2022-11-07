@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert, StatusBar } from "react-native";
+import { StatusBar } from "react-native";
 import {
   ParamListBase,
   NavigationProp,
@@ -52,14 +52,10 @@ export function Scheduling() {
   const { car } = route.params as Params;
 
   function handleConfirmRental() {
-    if (!rentalPeriod.startFormatted || !rentalPeriod.endFormatted) {
-      Alert.alert("Selecione o intervalo para alugar.");
-    } else {
-      navigation.navigate("Scheduling Details", {
-        car,
-        dates: Object.keys(markedDates),
-      });
-    }
+    navigation.navigate("Scheduling Details", {
+      car,
+      dates: Object.keys(markedDates),
+    });
   }
 
   function handleBack() {
@@ -131,7 +127,11 @@ export function Scheduling() {
       </S.Content>
 
       <S.Footer>
-        <Button title="Confirmar" onPress={handleConfirmRental} />
+        <Button
+          title="Confirmar"
+          onPress={handleConfirmRental}
+          enabled={!!rentalPeriod.startFormatted}
+        />
       </S.Footer>
     </S.Container>
   );
