@@ -1,4 +1,5 @@
 import React from "react";
+import { ActivityIndicator } from 'react-native'
 
 import * as S from "./styles";
 
@@ -10,18 +11,23 @@ interface Props extends RectButtonProps {
   color?: string;
   onPress: () => void;
   enabled?: boolean;
+  loading?: boolean;
 }
 
-export function Button({ title, color, onPress, enabled = true }: Props) {
+export function Button({ title, color, onPress, enabled = true, loading = false }: Props) {
   const theme = useTheme();
   return (
     <S.Container
       color={color ? color : theme.colors.main}
       onPress={onPress}
       enabled={enabled}
-      style={{ opacity: enabled ? 1 : .5 }}
+      style={{ opacity: (enabled === false || loading === true) ? .5 : 1 }}
     >
-      <S.Title>{title}</S.Title>
+      {
+        loading 
+        ? <ActivityIndicator color={theme.colors.shape} /> 
+        : <S.Title>{title}</S.Title>
+      }
     </S.Container>
   );
 }
