@@ -42,6 +42,9 @@ export function Home() {
         const response = await api.get("/cars").then((response) => {
           return response.data;
         });
+
+        console.log(response);
+        
         setCars(response);
       } catch (error: any) {
         console.log(error);
