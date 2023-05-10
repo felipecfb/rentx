@@ -43,8 +43,6 @@ export function Home() {
           return response.data;
         });
 
-        console.log(response);
-        
         setCars(response);
       } catch (error: any) {
         console.log(error);
