@@ -1,13 +1,19 @@
 import React from "react";
-
-import * as S from "./styles";
-
+import { StatusBar } from "react-native";
 import {
   ParamListBase,
   NavigationProp,
   useNavigation,
   useRoute,
 } from "@react-navigation/native";
+import { getStatusBarHeight } from "react-native-iphone-x-helper";
+import Animated, { 
+  Extrapolate,
+  interpolate,
+  useAnimatedScrollHandler,
+  useAnimatedStyle,
+  useSharedValue 
+} from "react-native-reanimated";
 
 import { BackButton } from "../../components/BackButton";
 import { ImageSlider } from "../../components/ImageSlider";
@@ -16,6 +22,11 @@ import { Button } from "../../components/Button";
 
 import { CarDTO } from "../../dtos/CarDTO";
 import { getAccessoryIcon } from "../../utils/getAccessoryIcon";
+
+import * as S from "./styles";
+
+
+
 
 interface Params {
   car: CarDTO;
@@ -26,6 +37,22 @@ export function CarDetails() {
   const route = useRoute();
   const { car } = route.params as Params;
 
+  const scrollY = useSharedValue(0);
+  const scrollHandler = useAnimatedScrollHandler(event => {
+    scrollY.value = event.contentOffset.y;
+  });
+
+  const headerStyleAnimation = useAnimatedStyle(() => {
+    return {
+      height: interpolate(
+        scrollY.value,
+        [0, 200],
+        [200, 70],
+        Extrapolate.CLAMP
+      )
+    }
+  })
+
   function handleConfirmRental() {
     navigation.navigate("Scheduling", { car });
   }
@@ -33,17 +60,35 @@ export function CarDetails() {
   function handleBack() {
     navigation.goBack();
   }
+
   return (
     <S.Container>
-      <S.Header>
-        <BackButton onPress={handleBack} />
-      </S.Header>
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor="transparent"
+        translucent
+      />
+      <Animated.View
+        style={[headerStyleAnimation]}
+      >
+        <S.Header>
+          <BackButton onPress={handleBack} />
+        </S.Header>
+        <S.CarImages>
+          <ImageSlider imagesUrl={car.photos} />
+        </S.CarImages>
+      </Animated.View>
 
-      <S.CarImages>
-        <ImageSlider imagesUrl={car.photos} />
-      </S.CarImages>
 
-      <S.Content>
+      <Animated.ScrollView
+        contentContainerStyle={{
+          paddingHorizontal: 24,
+          paddingTop: getStatusBarHeight(),
+          alignItems: "center",
+        }}
+        showsVerticalScrollIndicator={false}
+        onScroll={scrollHandler}
+      >
         <S.Details>
           <S.Description>
             <S.Brand>{car.brand}</S.Brand>
@@ -66,8 +111,16 @@ export function CarDetails() {
           ))}
         </S.Accessories>
 
-        <S.About>{car.about}</S.About>
-      </S.Content>
+        <S.About>
+          {car.about}
+          {car.about}
+          {car.about}
+          {car.about}
+          {car.about}
+          {car.about}
+          {car.about}
+        </S.About>
+      </Animated.ScrollView>
 
       <S.Footer>
         <Button
