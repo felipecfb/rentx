@@ -4,6 +4,7 @@ import * as S from './styles';
 import { StatusBar } from 'react-native';
 import { Button } from '../../components/Button';
 import theme from '../../styles/theme';
+import { Input } from '../../components/Input';
 
 export function SignIn() {
   return (
@@ -21,6 +22,10 @@ export function SignIn() {
           Faça seu login para começar{'\n'}uma experiência incrível.
         </S.Subtitle>
       </S.Header>
+
+      <S.Form>
+        <Input iconName={'mail'} />
+      </S.Form>
 
       <S.Footer>
         <Button
