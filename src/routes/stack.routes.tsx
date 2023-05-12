@@ -19,13 +19,37 @@ export function StackRoutes() {
       }} 
       initialRouteName="Splash"
     >
-      <Screen name="Splash" component={Splash} />
-      <Screen name="Home" component={Home} />
-      <Screen name="CarDetails" component={CarDetails} />
-      <Screen name="Scheduling" component={Scheduling} />
-      <Screen name="Scheduling Details" component={SchedulingDetails} />
-      <Screen name="Scheduling Complete" component={SchedulingComplete} />
-      <Screen name="MyCars" component={MyCars} />
+      <Screen
+        name="Splash"
+        component={Splash}
+      />
+      <Screen
+        name="Home"
+        component={Home}
+        options={{
+          gestureEnabled: false,
+        }}
+        />
+      <Screen
+        name="CarDetails"
+        component={CarDetails}
+      />
+      <Screen
+        name="Scheduling"
+        component={Scheduling}
+      />
+      <Screen
+        name="Scheduling Details"
+        component={SchedulingDetails}
+      />
+      <Screen
+        name="Scheduling Complete"
+        component={SchedulingComplete}
+      />
+      <Screen
+        name="MyCars"
+        component={MyCars}
+      />
     </Navigator>
   );
 }

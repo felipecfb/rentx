@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StatusBar, StyleSheet } from "react-native";
+import { StatusBar, StyleSheet, BackHandler } from "react-native";
 import {
   ParamListBase,
   NavigationProp,
@@ -83,6 +83,12 @@ export function Home() {
     fetchCars();
   }, []);
 
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      return true;
+    })
+  }, [])
+
   return (
     <S.Container>
       <StatusBar
@@ -93,7 +99,7 @@ export function Home() {
       <S.Header>
         <S.HeaderContent>
           <Logo width={RFValue(108)} height={RFValue(12)} />
-          <S.TotalCars>Total de {cars.length} carros</S.TotalCars>
+          {!loading && <S.TotalCars>Total de {cars.length} carros</S.TotalCars>}
         </S.HeaderContent>
       </S.Header>
 
