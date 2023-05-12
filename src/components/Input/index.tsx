@@ -9,16 +9,21 @@ interface Props extends TextInputProps {
   iconName: ComponentProps<typeof Feather>['name']
 }
 
-export function Input({ iconName }: Props) {
+export function Input({ iconName, ...rest }: Props) {
   const theme = useTheme()
 
   return (
     <S.Container>
-      <Feather
-        name={iconName}
-        size={24}
-        color={theme.colors.text_detail}
-      />
+
+      <S.IconContainer>
+        <Feather
+          name={iconName}
+          size={24}
+          color={theme.colors.text_detail}
+        />
+      </S.IconContainer>
+
+      <S.InputText {...rest} />
 
     </S.Container>
   );
