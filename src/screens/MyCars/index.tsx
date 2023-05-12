@@ -12,7 +12,7 @@ import * as S from "./styles";
 import { useTheme } from "styled-components";
 import { FlatList } from "react-native-gesture-handler";
 import { Car } from "../../components/Car";
-import { Load } from "../../components/Load";
+import { LoadAnimation } from "../../components/LoadAnimation";
 
 interface CarProps {
   id: string;
@@ -65,7 +65,7 @@ export function MyCars() {
         <S.Subtitle>Conforto, segurança e praticidade</S.Subtitle>
       </S.Header>
       {loading ? (
-        <Load />
+        <LoadAnimation />
       ) : (
         <S.Content>
           <S.Appointments>

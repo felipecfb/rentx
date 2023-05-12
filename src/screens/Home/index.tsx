@@ -13,6 +13,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 
 import { Car } from "../../components/Car";
 import { Load } from "../../components/Load";
+import { LoadAnimation } from '../../components/LoadAnimation'
 
 import api from "../../services/api";
 
@@ -104,7 +105,7 @@ export function Home() {
       </S.Header>
 
       {loading ? (
-        <Load />
+        <LoadAnimation />
       ) : (
         <S.CarList
           data={cars}
