@@ -5,6 +5,7 @@ import { StatusBar } from 'react-native';
 import { Button } from '../../components/Button';
 import theme from '../../styles/theme';
 import { Input } from '../../components/Input';
+import { PasswordInput } from '../../components/PasswordInput';
 
 export function SignIn() {
   return (
@@ -30,6 +31,11 @@ export function SignIn() {
           keyboardType="email-address"
           autoCorrect={false}
           autoCapitalize="none"
+        />
+
+        <PasswordInput
+          iconName="lock"
+          placeholder="Senha"
         />
       </S.Form>
 
