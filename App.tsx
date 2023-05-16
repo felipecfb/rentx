@@ -4,7 +4,6 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import React, { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
 
-import { ThemeProvider } from "styled-components";
 import theme from "./src/styles/theme";
 
 import * as SplashScreen from "expo-splash-screen";
@@ -16,6 +15,8 @@ import {
   Archivo_600SemiBold,
 } from "@expo-google-fonts/archivo";
 import { Routes } from "./src/routes";
+import { ThemeProvider } from "styled-components";
+import { AppProvider } from "./src/hooks";
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -53,16 +54,18 @@ export default function App() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <ThemeProvider theme={theme}>
-        <View
-          onLayout={onLayoutRootView}
-          style={{
-            flex: 1,
-          }}
-        >
-          <Routes />
-        </View>
-      </ThemeProvider>
+      <View
+        onLayout={onLayoutRootView}
+        style={{
+          flex: 1,
+        }}
+      >
+        <ThemeProvider theme={theme}>
+          <AppProvider>
+            <Routes />
+          </AppProvider>
+        </ThemeProvider>
+      </View>
     </GestureHandlerRootView>
   );
 }

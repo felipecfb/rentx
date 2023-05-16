@@ -9,12 +9,14 @@ import { PasswordInput } from '../../components/PasswordInput';
 import theme from '../../styles/theme';
 import * as S from './styles';
 import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
+import { useAuth } from '../../hooks/auth';
 
 export function SignIn() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const navigate = useNavigation<NavigationProp<ParamListBase>>()
+  const { signIn } = useAuth();
 
   async function handleSignIn() {
     try {
@@ -27,9 +29,13 @@ export function SignIn() {
       })
 
       await schema.validate({ email, password })
+
       Alert.alert('Tudo certo!')
 
-      // Fazer login.
+      signIn({
+        email,
+        password
+      })
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         return Alert.alert('Opa', err.message)
