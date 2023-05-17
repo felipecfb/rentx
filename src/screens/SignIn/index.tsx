@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { KeyboardAvoidingView, StatusBar, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import * as Yup from 'yup'
 
@@ -10,6 +10,7 @@ import theme from '../../styles/theme';
 import * as S from './styles';
 import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
 import { useAuth } from '../../hooks/auth';
+import { database } from '../../databases';
 
 export function SignIn() {
   const [email, setEmail] = useState('')
@@ -48,6 +49,18 @@ export function SignIn() {
   function handleNewAccount() {
     navigate.navigate('SignUpFirstStep')
   }
+
+  useEffect(() => {
+    async function loadData() {
+      const userCollection = database.get('users');
+
+      const users = await userCollection.query().fetch();
+
+      console.log(users);
+    }
+
+    loadData()
+  }, [])
 
   return (
     <KeyboardAvoidingView
