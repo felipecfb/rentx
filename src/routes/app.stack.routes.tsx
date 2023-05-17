@@ -16,10 +16,10 @@ export function AppStackRoutes() {
       screenOptions={{
         headerShown: false,
       }} 
-      initialRouteName="Home"
+      initialRouteName="HomeStack"
     >
       <Screen
-        name="Home"
+        name="HomeStack"
         component={Home}
         options={{
           gestureEnabled: false,

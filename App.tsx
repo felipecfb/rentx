@@ -15,7 +15,7 @@ import {
   Archivo_600SemiBold,
 } from "@expo-google-fonts/archivo";
 import { Routes } from "./src/routes";
-import { ThemeProvider } from "styled-components";
+import { ThemeProvider } from 'styled-components';
 import { AppProvider } from "./src/hooks";
 
 export default function App() {
@@ -53,19 +53,18 @@ export default function App() {
   }
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <View
-        onLayout={onLayoutRootView}
-        style={{
-          flex: 1,
-        }}
-      >
-        <ThemeProvider theme={theme}>
-          <AppProvider>
-            <Routes />
-          </AppProvider>
-        </ThemeProvider>
-      </View>
-    </GestureHandlerRootView>
+    <View
+      onLayout={onLayoutRootView}
+      style={{
+        flex: 1,
+      }}
+    >
+      {/* @ts-ignore */}
+      <ThemeProvider theme={theme}>
+        <AppProvider>
+          <Routes />
+        </AppProvider>
+      </ThemeProvider>
+    </View>
   );
 }

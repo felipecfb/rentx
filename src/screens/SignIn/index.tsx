@@ -10,7 +10,6 @@ import theme from '../../styles/theme';
 import * as S from './styles';
 import { NavigationProp, ParamListBase, useNavigation } from '@react-navigation/native';
 import { useAuth } from '../../hooks/auth';
-import { database } from '../../databases';
 
 export function SignIn() {
   const [email, setEmail] = useState('')
@@ -31,16 +30,19 @@ export function SignIn() {
 
       await schema.validate({ email, password })
 
-      Alert.alert('Tudo certo!')
-
-      signIn({
+      const response = await signIn({
         email,
         password
       })
+
+      console.log(response);
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         return Alert.alert('Opa', err.message)
       }
+
+      console.log(err);
+      
 
       return Alert.alert('Erro na autenticação', 'Ocorreu um erro ao fazer login, verifique as credenciais')
     }
@@ -49,18 +51,6 @@ export function SignIn() {
   function handleNewAccount() {
     navigate.navigate('SignUpFirstStep')
   }
-
-  useEffect(() => {
-    async function loadData() {
-      const userCollection = database.get('users');
-
-      const users = await userCollection.query().fetch();
-
-      console.log(users);
-    }
-
-    loadData()
-  }, [])
 
   return (
     <KeyboardAvoidingView
