@@ -35,14 +35,10 @@ export function SignIn() {
         password
       })
 
-      console.log(response);
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         return Alert.alert('Opa', err.message)
       }
-
-      console.log(err);
-      
 
       return Alert.alert('Erro na autenticação', 'Ocorreu um erro ao fazer login, verifique as credenciais')
     }
