@@ -13,7 +13,7 @@ import { PasswordInput } from '../../components/PasswordInput'
 import { useAuth } from '../../hooks/auth';
 
 export function Profile() {
-  const { user } = useAuth()
+  const { user, signOut } = useAuth()
 
   const [option, setOption] = useState<'dataEdit' | 'passwordEdit'>('dataEdit')
   const [avatar, setAvatar] = useState(user.avatar)
@@ -27,8 +27,8 @@ export function Profile() {
     navigation.goBack()
   }
 
-  function handleSignOut() {
-
+  async function handleSignOut() {
+    await signOut()
   }
 
   function handleOptionChange(optionSelected: 'dataEdit' | 'passwordEdit') {
