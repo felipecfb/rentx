@@ -30,11 +30,10 @@ export function SignIn() {
 
       await schema.validate({ email, password })
 
-      const response = await signIn({
+      await signIn({
         email,
         password
       })
-
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         return Alert.alert('Opa', err.message)
