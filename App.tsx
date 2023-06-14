@@ -1,7 +1,7 @@
 import "react-native-gesture-handler";
 
 import React, { useCallback, useEffect, useState } from "react";
-import { View } from "react-native";
+import { View, LogBox } from "react-native";
 
 import theme from "./src/styles/theme";
 
@@ -16,6 +16,11 @@ import {
 import { Routes } from "./src/routes";
 import { ThemeProvider } from 'styled-components';
 import { AppProvider } from "./src/hooks";
+
+LogBox.ignoreLogs([
+  'Non-serializable values were found in the navigation state',
+  'Key "cancelled" in the image picker result is deprecated and will be removed in SDK 48, use "canceled" instead'
+]);
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);

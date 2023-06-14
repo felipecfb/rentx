@@ -5,12 +5,15 @@ import { getAccessoryIcon } from "../../utils/getAccessoryIcon";
 import { Car as ModelCar } from "../../database/model/Car";
 
 import * as S from "./styles";
+import { useNetInfo } from "@react-native-community/netinfo";
 
 interface Props extends RectButtonProps {
   data: ModelCar;
 }
 
 export function Car({ data, ...rest }: Props) {
+  const netInfo = useNetInfo();
+
   const MotorIcon = getAccessoryIcon(data.fuel_type);
 
   return (
@@ -22,7 +25,11 @@ export function Car({ data, ...rest }: Props) {
         <S.About>
           <S.Rent>
             <S.Period>{data.period}</S.Period>
-            <S.Price>{`R$ ${data.price}`}</S.Price>
+            <S.Price>
+              {
+                netInfo.isConnected === true ? `R$ ${data.price}` : '...'
+              }
+            </S.Price>
           </S.Rent>
 
           <S.Type>
