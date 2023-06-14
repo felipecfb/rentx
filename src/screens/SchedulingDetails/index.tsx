@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Alert } from "react-native";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 import {
   ParamListBase,
   NavigationProp,
@@ -25,6 +24,7 @@ import { Button } from "../../components/Button";
 
 import { getPlatformDate } from "../../utils/getPlatformDate";
 import api from "../../services/api";
+import { useNetInfo } from "@react-native-community/netinfo";
 
 interface Params {
   car: CarDTO;
@@ -36,10 +36,13 @@ interface RentalPeriod {
 }
 
 export function SchedulingDetails() {
+  const [carUpdated, setCarUpdated] = useState<CarDTO>({} as CarDTO);
   const [loading, setLoading] = useState(false)
   const [rentalPeriod, setRentalPeriod] = useState<RentalPeriod>(
     {} as RentalPeriod
   );
+
+  const netInfo = useNetInfo();
 
   const theme = useTheme();
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
@@ -50,37 +53,22 @@ export function SchedulingDetails() {
 
   async function handleConfirmRental() {
     setLoading(true);
-    
-    const schedulesByCar = await api.get(`/schedules_bycars/${car.id}`);
 
-    const unavailable_dates = [
-      ...schedulesByCar.data.unavailable_dates,
-      ...dates,
-    ];
-
-    await api.post("schedules_byuser", {
+    await api.post("/rentals", {
       user_id: 1,
-      car,
-      startDate: format(getPlatformDate(new Date(dates[0])), "dd/MM/yyyy"),
-      endDate: format(
-        getPlatformDate(new Date(dates[dates.length - 1])),
-        "dd/MM/yyyy"
-      ),
-    });
-
-    api
-      .put(`/schedules_bycars/${car.id}`, {
-        id: car.id,
-        unavailable_dates,
-      })
+      car_id: car.id,
+      start_date: new Date(dates[0]),
+      end_date: new Date(dates[dates.length - 1]),
+      total: rentTotal
+    })
       .then(() => {
         navigation.navigate("Confirmation", {
-          nextScreenRoute: 'Home',
+          nextScreenRoute: 'HomeStack',
           title: 'Carro alugado!',
           message: `Agora você só precisa ir\naté a concessionária da RENTX\npegar o seu automóvel.`
         });
       })
-      .catch(() => {
+      .catch((error) => {
         setLoading(false);
         Alert.alert("Não foi possível confirmar o agendamento");
       });
@@ -100,6 +88,18 @@ export function SchedulingDetails() {
     });
   }, [dates]);
 
+  useEffect(() => {
+    async function fetchCarUpdated() {
+      const response = await api.get(`/cars/${car.id}`);
+
+      setCarUpdated(response.data)
+    }
+
+    if (netInfo.isConnected === true) {
+      fetchCarUpdated();
+    }
+  }, [netInfo.isConnected])
+
   return (
     <S.Container>
       <S.Header>
@@ -107,7 +107,12 @@ export function SchedulingDetails() {
       </S.Header>
 
       <S.CarImages>
-        <ImageSlider imagesUrl={car.photos} />
+        <ImageSlider
+          imagesUrl={
+            !!carUpdated.photos ?
+              carUpdated.photos : [{ id: car.thumbnail, photo: car.thumbnail }]
+          }
+        />
       </S.CarImages>
 
       <S.Content>
@@ -124,13 +129,16 @@ export function SchedulingDetails() {
         </S.Details>
 
         <S.Accessories>
-          {car.accessories.map((accessory) => (
-            <Accessory
-              key={accessory.type}
-              name={accessory.name}
-              icon={getAccessoryIcon(accessory.type)}
-            />
-          ))}
+          {
+            carUpdated.accessories &&
+            carUpdated.accessories.map((accessory) => (
+              <Accessory
+                key={accessory.type}
+                name={accessory.name}
+                icon={getAccessoryIcon(accessory.type)}
+              />
+            ))
+          }
         </S.Accessories>
 
         <S.RentalPeriod>
