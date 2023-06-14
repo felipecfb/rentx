@@ -38,7 +38,6 @@ export function Home() {
       database,
       pullChanges: async ({ lastPulledAt }) => {
         const { data } = await api.get(`cars/sync/pull?lastPulledVersion=${lastPulledAt || 0}`);
-
         const { changes, latestVersion } = data;
 
         return { changes, timestamp: latestVersion };
@@ -47,7 +46,7 @@ export function Home() {
         const user = changes.users;
 
         if (user.updated.length > 0) {
-          await api.post('/users/sync', user);
+          await api.post('/users/sync', user).catch(console.log)
         }
       }
     });
